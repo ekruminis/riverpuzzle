@@ -13,5 +13,7 @@ public class Game {
 
     window.setContentPane(board.getMainPanel());
     window.setVisible(true);
+
+
   }
 }
