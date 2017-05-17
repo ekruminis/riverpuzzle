@@ -4,17 +4,20 @@ import java.awt.event.*;
 
 public class Game {
   public static void main(String[] args) {
-    JFrame window = new JFrame();
     Board board = new Board();
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    window.setTitle("River Crossing Puzzle");
-    window.setSize(400, 600);
+    board.getWindow().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    board.getWindow().setTitle("River Crossing Puzzle");
+    board.getWindow().setSize(400, 600);
     //window.setSize(288, 416);
-    window.setResizable(true);
+    board.getWindow().setResizable(true);
 
-    window.setContentPane(board.getMainPanel());
-    window.setVisible(true);
+    board.getWindow().setContentPane(board.getMainPanel());
+    board.getWindow().setVisible(true);
 
-      board.mouseClicked();
+    board.mouseClicked();
+    while(true)
+    {
+      board.playing();
+    }
   }
 }

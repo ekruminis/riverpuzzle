@@ -5,6 +5,10 @@ import java.awt.event.*;
 public class Board extends JFrame implements ActionListener {
     // ** make all public **
       public JPanel mainPanel = new JPanel();
+      public JPanel gamePanel = new JPanel();
+      public JPanel plankPanel = new JPanel();
+      public JLabel plankLabel = new JLabel();
+      public JFrame window = new JFrame();
 
       public ImageIcon water1 = new ImageIcon("water1.jpg");
       public ImageIcon water2 = new ImageIcon("water2.jpg");
@@ -25,11 +29,13 @@ public class Board extends JFrame implements ActionListener {
 
       public ImageIcon bank1 = new ImageIcon("bank1.jpg");
       public ImageIcon bank2 = new ImageIcon("bank2.jpg");
+      public ImageIcon bank3 = new ImageIcon("bank3.jpg");
 
     	public JButton[][] b = new JButton[9][13];
 
       public int plankHold = 0;
-      public boolean pickUp;
+
+      public int time;
     // ** make all public **
     	// Initialisation of original level 1 board.
     private void levelOne()
@@ -41,13 +47,13 @@ public class Board extends JFrame implements ActionListener {
       }
 
     	for(int y=0; y<9; y++) {
-    		b[y][0].setIcon(bank2);
+    		b[y][0].setIcon(bank3);
         b[y][1].setIcon(bank2);
     	}
 
     	for(int y=0; y<9; y++) {
         b[y][11].setIcon(bank1);
-    		b[y][12].setIcon(bank1);
+    		b[y][12].setIcon(bank3);
     	}
 
     	b[4][0].setIcon(stump3);
@@ -74,16 +80,45 @@ public class Board extends JFrame implements ActionListener {
       for(int x=0; x<13; x++) {
           for(int y=0; y<9; y++) {
             b[y][x].addActionListener(this);
-    		    mainPanel.add(b[y][x]);
+    		    gamePanel.add(b[y][x]);
           }
         }
     }
 
-    public JComponent getMainPanel()
+    public JFrame getWindow()
+    {
+      return window;
+    }
+
+    public JComponent getGamePanel()
     {
       GridLayout layout = new GridLayout(13, 9, 0, 0);
-      mainPanel.setLayout(layout);
-      levelOne();
+      gamePanel.setLayout(layout);
+        levelOne();
+      return gamePanel;
+    }
+
+    public int getPlankHold()
+    {
+      return plankHold;
+    }
+
+    public JComponent getPlankPanel()
+    {
+      plankLabel.setText("Amount of planks being currently held: " + getPlankHold());
+      plankPanel.add(plankLabel);
+      return plankPanel;
+    }
+
+
+    public JComponent getMainPanel()
+    {
+      BorderLayout b = new BorderLayout();
+      mainPanel.setLayout(b);
+
+      mainPanel.add(getGamePanel(), b.CENTER);
+      mainPanel.add(getPlankPanel(), b. NORTH);
+
       return mainPanel;
     }
 
@@ -115,9 +150,13 @@ public class Board extends JFrame implements ActionListener {
         }
     }
 
+    public void playing()
+    {
+      plankLabel.setText("Amount of planks currently being held: " + getPlankHold());
+    }
+
     public void actionPerformed(ActionEvent e)
     {
-      System.out.println(plankHold);
       JButton source = (JButton)e.getSource();
       for(int x=0; x<13; x++) {
           for(int y=0; y<9; y++) {
@@ -129,35 +168,30 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump1_man);
-                  pickUp = true;
                 }
 
                 if(source.getIcon().equals(stump2))
                 {
                   update();
                   source.setIcon(stump2_man);
-                  pickUp = true;
                 }
 
                 if(source.getIcon().equals(stump3))
                 {
                   update();
                   source.setIcon(stump3_man);
-                  pickUp = true;
                 }
 
                 if(source.getIcon().equals(plank1))
                 {
                   update();
                   source.setIcon(plank1_man);
-                  pickUp = false;
                 }
 
                 if(source.getIcon().equals(plank2))
                 {
                   update();
                   source.setIcon(plank2_man);
-                  pickUp = false;
                 }
               }
 
@@ -227,8 +261,7 @@ public class Board extends JFrame implements ActionListener {
                 }
               }
 
-              if(y != 0) {
-              if(b[y-1][x].getIcon().equals(stump1_man) || b[y-1][x].getIcon().equals(stump2_man) || b[y-1][x].getIcon().equals(stump3_man) || b[y-1][x].getIcon().equals(plank1_man) || b[y-1][x].getIcon().equals(plank2_man))
+              if( (y-1) > 0 && (b[y-1][x].getIcon().equals(stump1_man) || b[y-1][x].getIcon().equals(stump2_man) || b[y-1][x].getIcon().equals(stump3_man) || b[y-1][x].getIcon().equals(plank1_man) || b[y-1][x].getIcon().equals(plank2_man)))
               {
                 if(source.getIcon().equals(stump1))
                 {
@@ -260,10 +293,8 @@ public class Board extends JFrame implements ActionListener {
                   source.setIcon(plank2_man);
                 }
               }
-            }
 
-            if(y != 13) {
-              if(b[y+1][x].getIcon().equals(stump1_man) || b[y+1][x].getIcon().equals(stump2_man) || b[y+1][x].getIcon().equals(stump3_man) || b[y+1][x].getIcon().equals(plank1_man) || b[y+1][x].getIcon().equals(plank2_man))
+              if( (y+1) < 9 && (b[y+1][x].getIcon().equals(stump1_man) || b[y+1][x].getIcon().equals(stump2_man) || b[y+1][x].getIcon().equals(stump3_man) || b[y+1][x].getIcon().equals(plank1_man) || b[y+1][x].getIcon().equals(plank2_man)))
               {
                 if(source.getIcon().equals(stump1))
                 {
@@ -295,10 +326,8 @@ public class Board extends JFrame implements ActionListener {
                   source.setIcon(plank2_man);
                 }
               }
-            }
 
-            if(x != 0) {
-              if(b[y][x-1].getIcon().equals(stump1_man) || b[y][x-1].getIcon().equals(stump2_man) || b[y][x-1].getIcon().equals(stump3_man) || b[y][x-1].getIcon().equals(plank1_man) || b[y][x-1].getIcon().equals(plank2_man))
+              if( (x-1) > 0 && (b[y][x-1].getIcon().equals(stump1_man) || b[y][x-1].getIcon().equals(stump2_man) || b[y][x-1].getIcon().equals(stump3_man) || b[y][x-1].getIcon().equals(plank1_man) || b[y][x-1].getIcon().equals(plank2_man)))
               {
                 if(source.getIcon().equals(stump1))
                 {
@@ -330,10 +359,8 @@ public class Board extends JFrame implements ActionListener {
                   source.setIcon(plank2_man);
                 }
               }
-            }
 
-            if(x != 13) {
-              if(b[y][x+1].getIcon().equals(stump1_man) || b[y][x+1].getIcon().equals(stump2_man) || b[y][x+1].getIcon().equals(stump3_man) || b[y][x+1].getIcon().equals(plank1_man) || b[y][x+1].getIcon().equals(plank2_man))
+              if( (x+1) < 13 && (b[y][x+1].getIcon().equals(stump1_man) || b[y][x+1].getIcon().equals(stump2_man) || b[y][x+1].getIcon().equals(stump3_man) || b[y][x+1].getIcon().equals(plank1_man) || b[y][x+1].getIcon().equals(plank2_man)))
               {
                 if(source.getIcon().equals(stump1))
                 {
@@ -370,7 +397,6 @@ public class Board extends JFrame implements ActionListener {
           }
         }
       }
-    }
 
 
 public void mouseClicked()
@@ -385,38 +411,44 @@ public void mouseClicked()
                JButton source = (JButton)e.getSource();
                for(int x=0; x<13; x++) {
                    for(int y=0; y<9; y++) {
-                     if(b[y][x].equals(source))
+                     if(b[y][x].equals(source) && plankHold < 3)
                      {
                        if(b[y][x].getIcon().equals(plank1) || b[y][x].getIcon().equals(plank2))
                        {
-                          if( (x-3) > -1 && (b[y][x-1].getIcon().equals(stump1_man) || b[y][x-2].getIcon().equals(stump1_man) || b[y][x-3].getIcon().equals(stump1_man)))
-                          {
-                             plankHold++;
-                             b[y][x].setIcon(water1);
-                          }
+                         if( (x-3) > -1 && (b[y][x-1].getIcon().equals(stump1_man) || b[y][x-2].getIcon().equals(stump1_man) || b[y][x-3].getIcon().equals(stump1_man)))
+                         {
+                           plankHold++;
+                           plankHold = Math.min(3,plankHold);
+                           b[y][x].setIcon(water1);
+                         }
                          if( (y-3) > -1 && (b[y-1][x].getIcon().equals(stump1_man) || b[y-2][x].getIcon().equals(stump1_man) || b[y-3][x].getIcon().equals(stump1_man)))
                          {
                            plankHold++;
-                          b[y][x].setIcon(water1);
+                           plankHold = Math.min(3,plankHold);
+                           b[y][x].setIcon(water1);
                          }
                          if( (y+3) < 9 && (b[y+1][x].getIcon().equals(stump1_man) || b[y+2][x].getIcon().equals(stump1_man) || b[y+3][x].getIcon().equals(stump1_man)))
                          {
                            plankHold++;
+                           plankHold = Math.min(3,plankHold);
                            b[y][x].setIcon(water1);
                          }
                          if( (x+3) < 13 && (b[y][x+1].getIcon().equals(stump1_man) || b[y][x+2].getIcon().equals(stump1_man) || b[y][x+3].getIcon().equals(stump1_man)))
                          {
                            plankHold++;
+                           plankHold = Math.min(3,plankHold);
                            b[y][x].setIcon(water1);
                          }
                          if(b[y][0].getIcon().equals(stump1_man) || b[y][0].getIcon().equals(stump1_man) || b[y][0].getIcon().equals(stump1_man))
                          {
                            plankHold++;
+                           plankHold = Math.min(3,plankHold);
                            b[y][x].setIcon(water1);
                          }
                          if(b[0][x].getIcon().equals(stump1_man) || b[0][x].getIcon().equals(stump1_man) || b[0][x].getIcon().equals(stump1_man))
                          {
                            plankHold++;
+                           plankHold = Math.min(3,plankHold);
                            b[y][x].setIcon(water1);
                          }
                        }
@@ -431,37 +463,43 @@ public void mouseClicked()
                   JButton source = (JButton)e.getSource();
                   for(int x=0; x<13; x++) {
                       for(int y=0; y<9; y++) {
-                        if(b[y][x].equals(source)) {
+                        if(b[y][x].equals(source) && plankHold != 0) {
                             if(b[y][x].getIcon().equals(water1))
                             {
                 							if( (x-3) > -1 && (b[y][x-1].getIcon().equals(stump1_man) || b[y][x-2].getIcon().equals(stump1_man) || b[y][x-3].getIcon().equals(stump1_man)))
                               {
-                									plankHold--;
-                									b[y][x].setIcon(plank2);
+                								plankHold--;
+                                plankHold = Math.max(0,plankHold);
+                								b[y][x].setIcon(plank2);
                 							}
                 						  if( (y-3) > -1 && (b[y-1][x].getIcon().equals(stump1_man) || b[y-2][x].getIcon().equals(stump1_man) || b[y-3][x].getIcon().equals(stump1_man)))
                               {
                                 plankHold--;
-                							 b[y][x].setIcon(plank1);
+                                plankHold = Math.max(0,plankHold);
+                							  b[y][x].setIcon(plank1);
                 						  }
                 						  if( (y+3) < 9 && (b[y+1][x].getIcon().equals(stump1_man) || b[y+2][x].getIcon().equals(stump1_man) || b[y+3][x].getIcon().equals(stump1_man)))
                               {
                                 plankHold--;
+                                plankHold = Math.max(0,plankHold);
                 							  b[y][x].setIcon(plank1);
                 						  }
                 						  if( (x+3) < 13 && (b[y][x+1].getIcon().equals(stump1_man) || b[y][x+2].getIcon().equals(stump1_man) || b[y][x+3].getIcon().equals(stump1_man)))
                               {
                                 plankHold--;
+                                plankHold = Math.max(0,plankHold);
                 							  b[y][x].setIcon(plank2);
                 						  }
                 						  if(b[y][0].getIcon().equals(stump1_man) || b[y][0].getIcon().equals(stump1_man) || b[y][0].getIcon().equals(stump1_man))
                 						  {
                                 plankHold--;
+                                plankHold = Math.max(0,plankHold);
                 							  b[y][x].setIcon(plank2);
                 						  }
                 						  if(b[0][x].getIcon().equals(stump1_man) || b[0][x].getIcon().equals(stump1_man) || b[0][x].getIcon().equals(stump1_man))
                 						  {
                                 plankHold--;
+                                plankHold = Math.max(0,plankHold);
                 							  b[y][x].setIcon(plank1);
                 						  }
                 					  }
@@ -482,16 +520,20 @@ public void mouseClicked()
 
   public static void main(String[] args)
   {
-    JFrame window = new JFrame();
     Board board = new Board();
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    window.setTitle("River Crossing Puzzle");
-    window.setSize(400, 600); //window.setSize(288, 416);
-    window.setResizable(true);
+    board.getWindow().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    board.getWindow().setTitle("River Crossing Puzzle");
+    board.getWindow().setSize(400, 600);
+    //window.setSize(288, 416);
+    board.getWindow().setResizable(true);
 
-    window.setContentPane(board.getMainPanel());
-    window.setVisible(true);
+    board.getWindow().setContentPane(board.getMainPanel());
+    board.getWindow().setVisible(true);
 
     board.mouseClicked();
+    while(true)
+    {
+      board.playing();
+    }
   }
 }
