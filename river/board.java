@@ -33,57 +33,217 @@ public class Board extends JFrame implements ActionListener {
 
     	public JButton[][] b = new JButton[9][13];
 
-      public int plankHold = 0;
+      private int plankHold = 0;
 
-      public int time;
+      public int level = 0;;
     // ** make all public **
     	// Initialisation of original level 1 board.
-    private void levelOne()
-    {
-      for(int x=0; x<13; x++) {
-          for(int y=0; y<9; y++) {
-    		      b[y][x] = new JButton(water1);
+      public void levelTwo()
+      {
+        gamePanel.removeAll();
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+                b[y][x] = new JButton(water1);
+            }
+        }
+
+        for(int y=0; y<9; y++) {
+          b[y][0].setIcon(bank3);
+          b[y][1].setIcon(bank2);
+        }
+
+        for(int y=0; y<9; y++) {
+          b[y][11].setIcon(bank1);
+          b[y][12].setIcon(bank3);
+        }
+
+        b[4][0].setIcon(stump3);
+        b[4][1].setIcon(water1);
+        b[4][12].setIcon(stump2_man);
+
+        b[0][10].setIcon(stump1);
+        b[0][8].setIcon(stump1);
+        b[0][6].setIcon(stump1);
+        b[0][2].setIcon(stump1);
+        b[2][6].setIcon(stump1);
+        b[6][6].setIcon(stump1);
+        b[4][8].setIcon(stump1);
+        b[4][4].setIcon(stump1);
+
+        b[4][11].setIcon(plank2);
+        b[4][10].setIcon(plank2);
+        b[4][9].setIcon(plank2);
+        b[3][6].setIcon(plank1);
+        b[4][6].setIcon(plank1);
+        b[5][6].setIcon(plank1);
+        b[0][9].setIcon(plank2);
+
+        JPanel gamePanel = new JPanel();
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+              b[y][x].addActionListener(this);
+              gamePanel.add(b[y][x]);
+            }
           }
+          mouseClicked();
       }
 
-    	for(int y=0; y<9; y++) {
-    		b[y][0].setIcon(bank3);
-        b[y][1].setIcon(bank2);
-    	}
+      public void levelOne()
+      {
 
-    	for(int y=0; y<9; y++) {
-        b[y][11].setIcon(bank1);
-    		b[y][12].setIcon(bank3);
-    	}
-
-    	b[4][0].setIcon(stump3);
-      b[4][1].setIcon(water1);
-    	b[4][12].setIcon(stump2_man);
-
-      b[0][10].setIcon(stump1);
-      b[0][8].setIcon(stump1);
-      b[0][6].setIcon(stump1);
-      b[0][2].setIcon(stump1);
-      b[2][6].setIcon(stump1);
-      b[6][6].setIcon(stump1);
-      b[4][8].setIcon(stump1);
-      b[4][4].setIcon(stump1);
-
-    	b[4][11].setIcon(plank2);
-    	b[4][10].setIcon(plank2);
-    	b[4][9].setIcon(plank2);
-      b[3][6].setIcon(plank1);
-      b[4][6].setIcon(plank1);
-      b[5][6].setIcon(plank1);
-    	b[0][9].setIcon(plank2);
-
-      for(int x=0; x<13; x++) {
-          for(int y=0; y<9; y++) {
-            b[y][x].addActionListener(this);
-    		    gamePanel.add(b[y][x]);
-          }
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+                b[y][x] = new JButton(water1);
+            }
         }
-    }
+
+        for(int y=0; y<9; y++) {
+          b[y][0].setIcon(bank3);
+          b[y][1].setIcon(bank2);
+        }
+
+        for(int y=0; y<9; y++) {
+          b[y][11].setIcon(bank1);
+          b[y][12].setIcon(bank3);
+        }
+
+        b[4][0].setIcon(stump3);
+        b[4][1].setIcon(water1);
+        b[4][12].setIcon(stump2_man);
+
+        b[4][10].setIcon(stump1);
+        b[2][10].setIcon(stump1);
+        b[0][10].setIcon(stump1);
+        b[0][6].setIcon(stump1);
+        b[0][2].setIcon(stump1);
+        b[2][2].setIcon(stump1);
+        b[4][2].setIcon(stump1);
+        b[4][6].setIcon(stump1);
+        b[8][6].setIcon(stump1);
+
+        b[4][11].setIcon(plank2);
+        b[0][9].setIcon(plank2);
+        b[0][8].setIcon(plank2);
+        b[0][7].setIcon(plank2);
+        b[5][6].setIcon(plank1);
+        b[6][6].setIcon(plank1);
+        b[7][6].setIcon(plank1);
+
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+              b[y][x].addActionListener(this);
+              gamePanel.add(b[y][x]);
+            }
+          }
+          mouseClicked();
+      }
+
+      public void levelThree()
+      {
+        gamePanel.removeAll();
+
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+                b[y][x] = new JButton(water1);
+            }
+        }
+
+        for(int y=0; y<9; y++) {
+          b[y][0].setIcon(bank3);
+          b[y][1].setIcon(bank2);
+        }
+
+        for(int y=0; y<9; y++) {
+          b[y][11].setIcon(bank1);
+          b[y][12].setIcon(bank3);
+        }
+
+        b[4][0].setIcon(stump3);
+        b[4][1].setIcon(water1);
+        b[6][12].setIcon(stump2_man);
+
+        b[6][10].setIcon(stump1);
+        b[6][6].setIcon(stump1);
+        b[8][6].setIcon(stump1);
+        b[2][6].setIcon(stump1);
+        b[2][8].setIcon(stump1);
+        b[0][2].setIcon(stump1);
+        b[0][4].setIcon(stump1);
+        b[2][2].setIcon(stump1);
+        b[4][4].setIcon(stump1);
+
+        b[2][7].setIcon(plank2);
+        b[6][11].setIcon(plank2);
+        b[6][9].setIcon(plank2);
+        b[6][8].setIcon(plank2);
+        b[6][7].setIcon(plank2);
+
+        JPanel gamePanel = new JPanel();
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+              b[y][x].addActionListener(this);
+              gamePanel.add(b[y][x]);
+            }
+          }
+          mouseClicked();
+
+      }
+
+      public void levelFour()
+      {
+        gamePanel.removeAll();
+
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+                b[y][x] = new JButton(water1);
+            }
+        }
+
+        for(int y=0; y<9; y++) {
+          b[y][0].setIcon(bank3);
+          b[y][1].setIcon(bank2);
+        }
+
+        for(int y=0; y<9; y++) {
+          b[y][11].setIcon(bank1);
+          b[y][12].setIcon(bank3);
+        }
+
+        b[6][0].setIcon(stump3);
+        b[6][1].setIcon(water1);
+        b[4][12].setIcon(stump2_man);
+
+        b[4][10].setIcon(stump1);
+        b[4][8].setIcon(stump1);
+        b[4][6].setIcon(stump1);
+        b[4][4].setIcon(stump1);
+        b[4][2].setIcon(stump1);
+        b[0][10].setIcon(stump1);
+        b[0][6].setIcon(stump1);
+        b[2][6].setIcon(stump1);
+        b[8][10].setIcon(stump1);
+        b[8][8].setIcon(stump1);
+        b[6][4].setIcon(stump1);
+        b[2][2].setIcon(stump1);
+        b[8][2].setIcon(stump1);
+
+        b[5][2].setIcon(plank1);
+        b[6][2].setIcon(plank1);
+        b[7][2].setIcon(plank1);
+
+        b[4][11].setIcon(plank2);
+        b[8][9].setIcon(plank2);
+
+        JPanel gamePanel = new JPanel();
+        for(int x=0; x<13; x++) {
+            for(int y=0; y<9; y++) {
+              b[y][x].addActionListener(this);
+              gamePanel.add(b[y][x]);
+            }
+          }
+          mouseClicked();
+      }
+
 
     public JFrame getWindow()
     {
@@ -94,7 +254,10 @@ public class Board extends JFrame implements ActionListener {
     {
       GridLayout layout = new GridLayout(13, 9, 0, 0);
       gamePanel.setLayout(layout);
+      if(level == 0)
+      {
         levelOne();
+      }
       return gamePanel;
     }
 
@@ -155,6 +318,72 @@ public class Board extends JFrame implements ActionListener {
       plankLabel.setText("Amount of planks currently being held: " + getPlankHold());
     }
 
+    public void changeLevel()
+    {
+      for(int x=0; x<13; x++) {
+          for(int y=0; y<9; y++) {
+
+              if(level == 0 && b[y][x].getIcon().equals(stump3_man))
+              {
+                System.out.println("you finished this level 2");
+                getGamePanel().revalidate();
+                getGamePanel().repaint();
+                levelTwo();
+                for(int q=0; q<13; q++) {
+                    for(int w=0; w<9; w++) {
+                      if(b[w][q].getIcon().equals(stump3_man))
+                      {
+                        level++;
+                      }
+                      b[w][q].addActionListener(this);
+                      gamePanel.add(b[w][q]);
+                    }
+                  }
+                getMainPanel();
+                getWindow().setContentPane(getMainPanel());
+              }
+              if(level == 1 && b[y][x].getIcon().equals(stump3_man))
+              {
+                System.out.println("you finished this level 3");
+                getGamePanel().revalidate();
+                getGamePanel().repaint();
+                levelThree();
+                for(int q=0; q<13; q++) {
+                    for(int w=0; w<9; w++) {
+                      b[w][q].addActionListener(this);
+                      gamePanel.add(b[w][q]);
+                      if(b[w][q].getIcon().equals(stump3_man))
+                      {
+                        level++;
+                      }
+                    }
+                  }
+                getMainPanel();
+                getWindow().setContentPane(getMainPanel());
+              }
+              if(level == 2 && b[y][x].getIcon().equals(stump3_man))
+              {
+                System.out.println("you finished this level 4");
+                getGamePanel().revalidate();
+                getGamePanel().repaint();
+                levelFour();
+                for(int q=0; q<13; q++) {
+                    for(int w=0; w<9; w++) {
+                      b[w][q].addActionListener(this);
+                      gamePanel.add(b[w][q]);
+                    }
+                  }
+                getMainPanel();
+                getWindow().setContentPane(getMainPanel());
+              }
+              if(level == 3 && b[y][x].getIcon().equals(stump3_man))
+              {
+                JOptionPane.showMessageDialog(getWindow(),"Congratulations, you beat the game!");
+              }
+            }
+          }
+    }
+
     public void actionPerformed(ActionEvent e)
     {
       JButton source = (JButton)e.getSource();
@@ -180,6 +409,7 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump3_man);
+                  level++;
                 }
 
                 if(source.getIcon().equals(plank1))
@@ -213,6 +443,7 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump3_man);
+                  level++;
                 }
 
                 if(source.getIcon().equals(plank1))
@@ -246,6 +477,7 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump3_man);
+                  level++;
                 }
 
                 if(source.getIcon().equals(plank1))
@@ -279,6 +511,7 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump3_man);
+                  level++;
                 }
 
                 if(source.getIcon().equals(plank1))
@@ -312,6 +545,7 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump3_man);
+                  level++;
                 }
 
                 if(source.getIcon().equals(plank1))
@@ -345,6 +579,7 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump3_man);
+                  level++;
                 }
 
                 if(source.getIcon().equals(plank1))
@@ -378,6 +613,7 @@ public class Board extends JFrame implements ActionListener {
                 {
                   update();
                   source.setIcon(stump3_man);
+                  level++;
                 }
 
                 if(source.getIcon().equals(plank1))
@@ -523,17 +759,22 @@ public void mouseClicked()
     Board board = new Board();
     board.getWindow().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     board.getWindow().setTitle("River Crossing Puzzle");
-    board.getWindow().setSize(400, 600);
-    //window.setSize(288, 416);
-    board.getWindow().setResizable(true);
+
+    board.getWindow().setSize(310, 500);
+    board.getWindow().setResizable(false);
 
     board.getWindow().setContentPane(board.getMainPanel());
     board.getWindow().setVisible(true);
+
+    JOptionPane.showMessageDialog(board.getWindow(),"Welcome to the River Puzzle Game!");
+    JOptionPane.showMessageDialog(board.getWindow(),"The Rules are simple: You need to move from one part of the board to the other by only walking via planks and stumps");
+    JOptionPane.showMessageDialog(board.getWindow(),"Press the LMB to walk, RMB to remove planks and MWB to place planks. Good Luck!");
 
     board.mouseClicked();
     while(true)
     {
       board.playing();
+      board.changeLevel();
     }
   }
 }
