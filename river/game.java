@@ -1,6 +1,22 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+/**
+ * This is a simple River Plank Puzzle Game implemented with Swing components.
+ * Uses the Board class which contains in it the logic/graphical output of the game.
+ *
+ * Controls are as follows:
+ *
+ * <pre>
+ *
+ * -Left Mouse Button-= to move the player.
+ * -Right Mouse Button-= to remove planks.
+ * -Mouse Wheel Button-= to place planks.
+ * 
+ * </pre>
+ *
+ * @author Edvinas Kruminis (e.kruminis@lancaster.ac.uk)
+ */
 
 public class Game {
   public static void main(String[] args) {
@@ -9,7 +25,7 @@ public class Game {
     board.getWindow().setTitle("River Crossing Puzzle");
 
     board.getWindow().setSize(310, 500);
-    board.getWindow().setResizable(false);
+    board.getWindow().setResizable(true);
 
     board.getWindow().setContentPane(board.getMainPanel());
     board.getWindow().setVisible(true);
@@ -23,7 +39,6 @@ public class Game {
     while(true)
     {
       board.playing();
-      board.changeLevel();
     }
   }
 }
