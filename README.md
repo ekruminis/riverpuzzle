@@ -10,3 +10,5 @@ Simple puzzle game made in Java using Swing components
 - Mouse Wheel Button = to place planks.
 
 ## Screenshots
+
+![Screenshot](screenshot.png)
